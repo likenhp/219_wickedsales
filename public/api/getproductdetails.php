@@ -28,6 +28,7 @@ $result = mysqli_query($conn, $query);
 //result is an object that is a reference to the data, a pointer to the data
 
 //print_r($result);
+//print_r is for mostly debugging purposes, it will not be used in production purposes
 //will show the fields inside
 //will work for objects and arrays
 //echo and print only do strings, echo only takes one param
