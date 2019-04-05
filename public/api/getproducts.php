@@ -1,5 +1,6 @@
 <?php
 
+require_once('config.php');
 
 // readfile("./data/getproducts.json");
 require_once('functions.php');
