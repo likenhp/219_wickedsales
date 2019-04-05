@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "description": "Generic E-Commerce website with ReactJS Client and PHP Backend",
   "main": "index.js",
+  "proxy": {
+    "/api/*": {
+      "target": "http://localhost"
+    }
+  },
   "scripts": {
     "start": "node dev_server.js",
     "bundle": "webpack --config webpack.prod.js --progress",

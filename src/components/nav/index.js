@@ -8,7 +8,7 @@ class Nav extends Component {
         <Fragment>
             <li>
                 <Link to="/">Home</Link>
-            </li>,
+            </li>
             <li>
                 <Link to="/products">Products</Link>
             </li>
