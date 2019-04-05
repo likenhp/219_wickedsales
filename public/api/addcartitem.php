@@ -44,9 +44,39 @@ if(empty($cart_id)){ //empty checks if the variable exists and whether it is und
         `users_id` = $user_id,
         `changed` = NOW()
         ";
-        print($cart_create_query);
+    $cart_result = mysqli_query($conn, $cart_create_query);
+    if(!$cart_result){
+        throw new Exception(mysqli_error($conn));
+    }
+    if(mysqli_affected_rows($conn)===0){
+        throw new Exception("data was not inserted to cart table");
+    }
+    $cart_id = mysqli_insert_id($conn);
 }
 
-//$query_cart = "SELECT `` FROM `carts`";
+$cart_item_query = "INSERT INTO `cart_items` SET
+    `products_id` = $product_id,
+    `quantity` = $product_quantity,
+    `carts_id` = $cart_id
+";
+
+$cart_item_result = mysqli_query($conn, $cart_item_query);
+
+if(!$cart_item_result){
+    throw new Exception(mysqli_error($conn));
+}
+if(!mysqli_affected_rows($conn)){
+    throw new Exception("failed to insert into cart_items");
+}
+
+$output = [
+    'success'=>true,
+    'cartCount'=>$product_quantity,
+    'cartTotal'=>$product_total
+];
+
+$json_output = json_encode($output);
+
+print($json_output);
 
 ?>
