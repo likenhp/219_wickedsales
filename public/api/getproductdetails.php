@@ -59,5 +59,5 @@ $output = [
 
 $json_output = json_encode($output);
 
-print_r($json_output);
+print($json_output);
 ?>
