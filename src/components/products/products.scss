@@ -5,6 +5,44 @@
         &:hover{
             background-color: lavender;
         }
+
+        
+    }
+    .product-details{
+        .product-price{
+        font-size: 3em;
+        font-weight: bold;
+        }
+
+        .carousel{
+            height: 310px;
+    
+            .indicators{
+                background-color: grey;
+            }
+        }
+
+        .add-to-cart{
+            font-size: 2em;
+
+            .qty-container{
+                margin: 0 30px;
+
+                button{
+                    margin: 0 12px;
+                }
+                .product-qty{
+                    padding: 5px 15px;
+                    position: relative;
+                    top: 5px;
+                    background-color: lavender;
+                }
+            }
+            button{
+                position: relative;
+                top: 2px;
+            }
+        }
     }
 }
 

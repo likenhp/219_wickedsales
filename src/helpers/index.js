@@ -9,3 +9,13 @@ export function formatMoney(pennies){
 
     return `$${dollars}`;
 }
+
+export function toWords(value){
+    let result = value.replace(/[A-Z]/g, function (letter) {
+        return ` ${letter}`;
+    });
+
+    result = result[0].toUpperCase() + result.slice(1);
+
+    return result;
+}
