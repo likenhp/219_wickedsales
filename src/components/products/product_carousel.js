@@ -4,7 +4,12 @@ class ProductCarousel extends Component {
     componentDidMount(){
         console.log("Carousel Div", this.carousel);
 
-        M.Carousel.init(this.carousel);
+        const config = {
+            numVisible: 1,
+            indicators: true
+        };
+
+        M.Carousel.init(this.carousel, config);
     }
 
     render(){
@@ -18,7 +23,7 @@ class ProductCarousel extends Component {
         });
 
         return(
-            <div ref={(element)=>this.carousel = element} className="carousel">
+            <div ref={(element)=>this.carousel = element} className="col s12 m8 carousel">
                 <h1>{items}</h1>
             </div>
         );
