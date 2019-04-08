@@ -44,10 +44,19 @@ class ProductDetails extends Component{
 
         const { description = "No desription currently available", name } = details;
 
+        const images = details.images.map((image, index)=>{
+            return(
+                <img key={index} src={`/dist/${image}`} className="staticimage"/>
+            )
+        });
+
         return(
             <div className="product-details">
                 <h1 className="center">{name}</h1>
                 <p>{description}</p>
+                <div>
+                {images}
+                </div>
             </div>
         );
     }
