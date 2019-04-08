@@ -1,0 +1,13 @@
+.products{
+    .product-item{
+        cursor: pointer;
+
+        &:hover{
+            background-color: lavender;
+        }
+    }
+}
+
+.staticimage{
+    max-width: 100%
+}
