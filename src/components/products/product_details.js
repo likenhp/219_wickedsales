@@ -49,14 +49,13 @@ class ProductDetails extends Component{
                 <img key={index} src={`/dist/${image}`} className="staticimage"/>
             )
         });
-
+        const price = (details.price / 100).toFixed(2);
         return(
             <div className="product-details">
                 <h1 className="center">{name}</h1>
+                <div className="center">{images}</div>
+                <h2 className="center">{`$${price}`}</h2>
                 <p>{description}</p>
-                <div>
-                {images}
-                </div>
             </div>
         );
     }
