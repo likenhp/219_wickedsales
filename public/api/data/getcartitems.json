@@ -1,0 +1,20 @@
+{
+	"success": true,
+	"cartItems": [{
+		"name": "Wicked Thing",
+		"price": 2000,
+		"images": ["images/wickedpic.jpg"],
+		"quantity": 3,
+		"id": 1
+	}, {
+		"name": "Wicked Shoes",
+		"price": 42150,
+		"images": ["images/wickedshoes.jpg"],
+		"quantity": 2,
+		"id": 2
+	}],
+	"cartMetaData": {
+		"created": 294345063,
+		"total": 90300
+	}
+}

@@ -1,12 +1,14 @@
 <?php
 
-require_once('config.php');
+
 
 // readfile("./data/getproducts.json");
 require_once('functions.php');
 //can now use the error handling function from functions.php
 
 set_exception_handler('handleError');//designed to handle errors
+
+require_once('config.php');
 
 require_once('mysqlconnect.php'); 
 //db and conn are now available from mysqlconnect.php, 

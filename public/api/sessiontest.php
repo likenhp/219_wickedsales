@@ -1,6 +1,7 @@
 <?php
 
 session_start();
-handleCORS();
+
+print_r($_SESSION);
 
 ?>
