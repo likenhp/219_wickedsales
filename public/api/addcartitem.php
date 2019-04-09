@@ -14,7 +14,7 @@ if(empty($_GET['product_id'])){
 
 $product_id = (int)$_GET['product_id'];
 //comes from the query string in the request url from the client
-$product_quantity = 1;
+$cart_quantity = $product_quantity = 1;
 //setting this up for future functionality, for now hardcode a value
 //$cart_id = 1;
 //setting up for future, for now hardcoded
@@ -71,6 +71,15 @@ if(empty($_SESSION['cart_id'])){
     WHERE `id` = $cart_id
     ";
 
+    /*
+    another way of writing queries
+    $update_cart_query = "UPDATE `carts` SET 
+    `item_count` = (@count := item_count) + $product_quantity,
+    `total_price` = `(@price := total_price` + $product_total
+    WHERE `id` = $cart_id
+    ";
+    */
+
     $update_result = mysqli_query($conn, $update_cart_query);
 
     if(!$update_result){
@@ -79,6 +88,30 @@ if(empty($_SESSION['cart_id'])){
     if(mysqli_affected_rows($conn) === 0){
         throw new Exception("Cart data was not updated");
     }
+
+    $cart_query = "SELECT `item_count`, `total_price` FROM `carts`
+    WHERE `id` = $cart_id
+    ";
+
+    /*
+    $cart_query = "SELECT @count, @price";
+    */
+    
+    $cart_result = mysqli_query($conn, $cart_query);
+    
+    if(!$cart_result){
+        throw new Exception("Unable to get updated cart data");
+    }
+
+    if(mysqli_num_rows($cart_result) === 0){
+        throw new Exception("No cart data found");
+    }
+
+    $row = mysqli_fetch_assoc($cart_result);
+    
+    $cart_quantity = $row['item_count'];
+    $product_total = $row['total_price'];
+    
 }
 
 $cart_item_query = "INSERT INTO `cart_items` SET
@@ -102,9 +135,9 @@ if(!mysqli_affected_rows($conn)){
 }
 
 $output = [
-    'success'=>true,
-    'cartCount'=>$product_quantity,
-    'cartTotal'=>$product_total
+    'success' => true,
+    'cartCount' => $cart_quantity,
+    'cartTotal' => $product_total
 ];
 
 $json_output = json_encode($output);
