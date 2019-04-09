@@ -64,6 +64,21 @@ if(empty($_SESSION['cart_id'])){
 } else{
     $cart_id = $_SESSION['cart_id'];
     //if there is a cart id we pull it out
+
+    $update_cart_query = "UPDATE `carts` SET 
+    `item_count` = `item_count` + $product_quantity,
+    `total_price` = `total_price` + $product_total
+    WHERE `id` = $cart_id
+    ";
+
+    $update_result = mysqli_query($conn, $update_cart_query);
+
+    if(!$update_result){
+        throw new Exception(mysqli_error($conn));
+    }
+    if(mysqli_affected_rows($conn) === 0){
+        throw new Exception("Cart data was not updated");
+    }
 }
 
 $cart_item_query = "INSERT INTO `cart_items` SET
