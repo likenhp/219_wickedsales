@@ -1,7 +1,9 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import {withRouter} from 'react-router-dom';
+import axios from 'axios';
 
-class ProductAdd extends Component{
-    constructor(props){
+class ProductAdd extends Component {
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -13,26 +15,34 @@ class ProductAdd extends Component{
         this.addToCart = this.addToCart.bind(this);
     }
 
-    decrementQty(){
-    if(this.state.qty > 1){
-        this.setState({
-            qty: this.state.qty - 1
-        });
-    }    
+    decrementQty() {
+        if (this.state.qty > 1) {
+            this.setState({
+                qty: this.state.qty - 1
+            });
+        }
     }
 
-    incrementQty(){
+    incrementQty() {
         this.setState({
             qty: this.state.qty + 1
         });
     }
 
-    addToCart(){
-        console.log('Add', this.state.qty, 'products to cart',this.props.productId);
-    }
+    addToCart() {
+        // console.log('Add', this.state.qty, 'products to cart', this.props.productId);
 
+        const { productId } = this.props;
+        const { qty } = this.state;
+        axios.get(`/api/addcartitem.php?product_id=${productId}&quantity=${qty}`).then(resp => {
+            // console.log('Add to cart resp: ', resp);
+
+            this.props.history.push('/cart'); //tell thing where to go to
+        });
+    }
     render(){
-        return(
+        //console.log('Products Add Props:', this.props);
+        return (
             <div className="right-align add-to-cart">
                 <span className="qty-container">
                     <button onClick={this.decrementQty} className="btn btn-small btn-floating purple darken-1">
@@ -43,7 +53,7 @@ class ProductAdd extends Component{
                         <i className="material-icons">add</i>
                     </button>
                 </span>
-
+    
                 <button onClick={this.addToCart} className="btn purple darken-1">
                     <i className="material-icons">add_shopping_cart</i>
                 </button>
@@ -52,4 +62,7 @@ class ProductAdd extends Component{
     }
 }
 
-export default ProductAdd;
+
+
+
+export default withRouter(ProductAdd);
