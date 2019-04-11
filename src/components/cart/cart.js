@@ -17,7 +17,7 @@ class Cart extends Component {
     async getCartData(){ //not necessary to use a fat arrow since we are only calling it in componentDidMount
         const {data = {} } = await axios.get('/api/getcartitems.php'); //we do data = {} to default data to an empty object if there is some type of error
 
-        console.log("Cart Items:", data);
+        //console.log("Cart Items:", data);
 
         if(data.success){
             this.setState({
@@ -25,12 +25,12 @@ class Cart extends Component {
                 meta: data.cartMetaData
             });
         }else{
-            console.error("Cart data failed to load");
+            //console.error("Cart data failed to load");
         }
     }
 
     render() {
-        console.log("State", this.state);
+        //console.log("State", this.state);
         const {items, meta} = this.state;
         let totalItems = 0;
 
