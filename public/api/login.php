@@ -9,20 +9,33 @@ $output = [
     "success" => false
 ];
 
-if(empty($_POST['email'])){
+$json_input = file_get_contents("php://input"); //is the main input string
+//should get the raw string of the body
+//if there was a header in POST, remember a header is a string due to URL encoding
+//how to code multiple pieces of data into a string?
+//axios sends jsonencoded, php cannot read this by default
+//note, AJAX sends it urlencoded making it sometihng php can understand
+//php takes these encodings and then converts it into a POST
+//when using axios and POST need to send the data in the body using raw text instead of x-www-form-urlencoded
+
+$input = json_decode($json_input, true);
+//this will turn the file back into url encode so php can read it
+//the true is used to make any nested objects associative arrays so it will be usable by php
+
+if(empty($input['email'])){
     throw new Exception('Email/Username is a required value');
 }
 
-if(empty($_POST['password'])){
+if(empty($input['password'])){
     throw new Exception('Password is a required value');
 }
 
-$email = $_POST['email'];
-$password = $_POST['password'];
+$email = $input['email'];
+$password = $input['password'];
 
 $hashed_password = sha1($password);
 
-unset($_POST['password']);
+unset($input['password']);
 
 $query ="SELECT `id`, `name` FROM `users` 
 WHERE `email` = '$email' AND `password` = '$hashed_password'
