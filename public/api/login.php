@@ -33,6 +33,10 @@ if(empty($input['password'])){
 $email = $input['email'];
 $password = $input['password'];
 
+$email = addslashes($email);
+//will escape out all the quote characters in a string
+//helps to sanitize these quotes to stop quotes from SQL injection attacks
+
 $hashed_password = sha1($password);
 
 unset($input['password']);
