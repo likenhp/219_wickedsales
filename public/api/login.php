@@ -73,7 +73,8 @@ $connect_query = "INSERT INTO `user_connections` SET
 //the token is from the username + id value + the microseconds and then hashed
 //data[id] is the id from the database
 //created is the current time of the database
-//the client address, 
+//the client address
+//client sends token to serve 
 
 $connect_result = mysqli_query($conn, $connect_query);
 
@@ -82,7 +83,7 @@ if(!$connect_result){
 }
 
 if(mysqli_affected_rows($conn) !== 1){
-    throw new Exception('Could not og you inL connection not saved');
+    throw new Exception('Could not log you in connection not saved');
 }
 //can only have one affected row at a time so it uses connection
 //num rows can have multiple affected so uses the result
