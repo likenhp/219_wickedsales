@@ -1,0 +1,23 @@
+.ws-modal{
+    display: flex;
+    background-color: rgba(0, 0, 0, .75);
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+
+    .ws-modal-content{
+        background-color: #fff;
+        width: 80%;
+        margin: auto;
+        padding: 20px;
+
+        .ws-modal-actions{
+            button{
+                margin: 8px 14px;
+            }
+        }
+    }
+}

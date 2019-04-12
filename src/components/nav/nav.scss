@@ -1,0 +1,45 @@
+nav {
+    padding: 0 12px;
+
+    .sidenav-cart{
+        display: none;
+    }
+}
+
+.cart-link{
+    position: relative;
+    i.cart-icon{
+        font-size: 32px;
+    }
+    .cart-items{
+        background: pink;
+        position: absolute;
+        border-radius: 50%;
+        top: 10px;
+        right: 15px;
+        color: black;
+        line-height: 20px;
+        width: 20px;
+        display: inline-block;
+        text-align: center;
+        font-size: 12px;
+    }
+}
+
+.sidenav{
+    .cart-link{
+        .cart-icon{
+            display: none;
+        }
+
+        .cart-items{
+            border-radius: 0;
+            padding: 4px 26px;
+            top: 14px;
+            width: auto;
+            background-color: red;
+            color: white;
+        }
+    }
+    
+}
