@@ -24,14 +24,10 @@ if(!empty($_SESSION['user_data'])){
     $token = $_SESSION['user_data']['token'];
 
 }else{ 
-    $json_input = file_get_contents("php://input");
-    $input = json_decode($json_input, true);
-
-    if(empty($input['token'])){
-        throw new Exception("already logged out");
-    }
-
-    $token = addslashes($input['token']);
+    $output['success'] = true;
+    $output['message'] = 'You were never logged in!';
+    print(json_encode($output));
+    exit();
 }
 
 $delete_query = "DELETE FROM `user_connections`
