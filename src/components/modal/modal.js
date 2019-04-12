@@ -5,14 +5,23 @@ class Modal extends Component{
     
 
     render(){
-        if(this.props.isOpen){
+        const {children, defaultAction, defaultActionText = "Okay", isOpen, secondaryAction = null, secondaryActionText = "Cancel"} = this.props
+
+        if(isOpen){
             return(
                 <div className="ws-modal">
                     <div className="ws-modal-content">
-                        {this.props.children}
+                        {children}
 
                         <div className="ws-modal-actions center">
-                            <button className="btn orange darken-2 btn-large" onClick={this.props.close}>Okay</button>
+                            <button className="btn orange darken-2 btn-large" onClick={defaultAction}>{defaultActionText}</button>
+
+                            {
+                                secondaryAction
+                                ? <button className="btn orange darken-4 btn-large" onClick={secondaryAction}>{secondaryActionText}</button>
+                                :null
+                            }
+
                         </div>
                     </div>
                 </div>
@@ -20,6 +29,7 @@ class Modal extends Component{
         }
 
         return null;
+        //makes nothig show up
     }
 }
 
