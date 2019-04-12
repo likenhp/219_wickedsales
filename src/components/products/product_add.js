@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import {withRouter} from 'react-router-dom';
 import axios from 'axios';
+import Modal from '../modal';
 
 class ProductAdd extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            qty: 1
+            qty: 1,
+            modalOpen: false,
+            totalPrice: 0,
+            cartQty: 0
         }
 
         this.incrementQty = this.incrementQty.bind(this);
@@ -32,16 +36,27 @@ class ProductAdd extends Component {
     addToCart() {
         // console.log('Add', this.state.qty, 'products to cart', this.props.productId);
 
-        const { productId } = this.props;
+        const { productId, updateCart } = this.props;
         const { qty } = this.state;
         axios.get(`/api/addcartitem.php?product_id=${productId}&quantity=${qty}`).then(resp => {
-            // console.log('Add to cart resp: ', resp);
+            console.log('Add Cart Resp:', resp)
+            //console.log('Add to cart resp: ', resp);
+            //this.props.history.push('/cart'); //tell thing where to go to
 
-            this.props.history.push('/cart'); //tell thing where to go to
+            const {cartCount, cartTotal} = resp.data;
+
+            updateCart(cartCount);
+            this.setState({
+                modalOpen: true,
+                totalPrice: cartCount,
+                cartQty: cartTotal
+            });
         });
     }
     render(){
         //console.log('Products Add Props:', this.props);
+        const {modalOpen, cartQty, totalPrice, qty} = this.state;
+
         return (
             <div className="right-align add-to-cart">
                 <span className="qty-container">
@@ -57,6 +72,18 @@ class ProductAdd extends Component {
                 <button onClick={this.addToCart} className="btn purple darken-1">
                     <i className="material-icons">add_shopping_cart</i>
                 </button>
+                <Modal isOpen={modalOpen}>
+                    <h1 className="center">{qty} Item(s) Added to Cart</h1>
+                    <div className="row">
+                        <div className="col s6">Cart Total Quantity</div>
+                        <div className="col s6">{totalPrice}</div>
+                    </div>
+                    <div className="row">
+                        <div className="col s6">Cart Total Price</div>
+                        <div className="col s6">{cartQty}</div>
+                    </div>
+                </Modal>
+                {/* content inside of the Modal are considered "Children" of the Component */}
             </div>
         );
     }

@@ -8,13 +8,19 @@ require_once('config.php');
 
 require_once('mysqlconnect.php');
 
+$product_quantity = 1;
+
+if(!empty($_GET['quantity'])){
+    $product_quantity = $_GET['quantity'];
+}
+
 if(empty($_GET['product_id'])){
     throw new Exception('You must send a Product ID with your request');
 }
 
 $product_id = (int)$_GET['product_id'];
 //comes from the query string in the request url from the client
-$cart_quantity = $product_quantity = 1;
+$cart_quantity = $product_quantity;
 //setting this up for future functionality, for now hardcode a value
 //$cart_id = 1;
 //setting up for future, for now hardcoded
