@@ -35,19 +35,39 @@ if(empty($input['password'])){
 $email = $input['email'];
 $password = $input['password'];
 
-$email = addslashes($email);
+//$email = addslashes($email); <--obsolete now due to the prepare statement
 //will escape out all the quote characters in a string
 //helps to sanitize these quotes to stop quotes from SQL injection attacks
+//not completely exploit proof
+
 
 $hashed_password = sha1($password);
 
 unset($input['password']);
 
 $query ="SELECT `id`, `name` FROM `users` 
-WHERE `email` = '$email' AND `password` = '$hashed_password'
+WHERE `email` = ? AND `password` = ?
 ";
 
-$result = mysqli_query($conn, $query);
+$statement = mysqli_prepare($conn, $query);
+//currently contains no variable values since they were replaced by ?
+//* 1) send the safe query to the database
+
+mysqli_stmt_bind_param($statement, 'ss', $email, $hashed_password);
+//takes in 3 values
+//first takes in statement
+//then what types of datas (both strings in this case)
+//then all variables you want to add in
+//has not been sent to database
+//* 2) send the dangerous data to the database
+
+mysqli_stmt_execute($statement);
+//* 3) tell the database to mix the query and the data
+
+$result = mysqli_stmt_get_result($statement);
+//* 4) get the result pointer for the prepared query statement's data
+
+//$result = mysqli_query($conn, $query); <-- no longer needed due to prepare statement
 //result is the reference to the result to the databse for that query
 //reference to the data that lets you get the data later on
 
