@@ -1,13 +1,28 @@
 import React from 'react';
-import {reduxForm} from 'redux-form'; 
+import {reduxForm, Field} from 'redux-form'; 
+import Input from '../../general/input';
 
 
-//reduxForm is a highre order function
+//reduxForm is a higher order function
 
 const SignInForm = props =>{
+    console.log("signin in form props", props);
+    const {handleSubmit, signIn} = props;
     return(
-        <form action="">
-            <h1>Form Goes Here</h1>
+        <form onSubmit={handleSubmit(signIn)}>
+            <div className="row">
+                <Field id="email" name="email" component={Input}  label="Email" col='s12'/>
+            </div>
+
+            <div className="row">
+                <Field id="password" name="password" component={Input} type="password" label="Password" col='s12'/>
+            </div>
+
+            <div className="row">
+                <div className="col s12 right-align">
+                    <button className="btn orange darken-3">Sign In</button>
+                </div>
+            </div>
         </form>
     );
 }
