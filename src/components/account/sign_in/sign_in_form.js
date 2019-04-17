@@ -27,9 +27,27 @@ const SignInForm = props =>{
     );
 }
 
+function validate({email, password}){ //when validate is called it will get all form values
+    //const {email, password} = values;
+    const errors = {};
+
+    if (!email){
+        errors.email = 'Please enter your email'; //property added on must have exact same name
+    }
+
+    if(!password){
+        errors.password = 'Please enter your password';
+    }
+
+    return errors;
+
+}
+
 export default reduxForm({
-    form: 'sign-in-form' /* this is where you set the name of the form, does not come from anywhere, 
+    form: 'sign-in-form', 
+    /* this is where you set the name of the form, does not come from anywhere, 
     probably won't be used again, it's for redux internally*/
+    validate: validate
 })(SignInForm);
 //reduxForm calls a function that returns a function
 //currying function
