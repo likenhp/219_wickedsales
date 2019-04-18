@@ -17,8 +17,10 @@ const DEFAULT_STATE = {
 
 function userReducer(state = DEFAULT_STATE, action){
     switch(action.type){
-        case 'LOG_USER_IN':
-            return{...state, auth: true, username: action.username}; 
+        //case 'LOG_USER_IN':
+            //return{...state, auth: true, username: action.username}; 
+        case 'SIGN_IN':
+            return{...state, auth: true};
         //returning just auth will delete username since the return replaces the default state, 
         //generally want to deconstruct initial state
         default:

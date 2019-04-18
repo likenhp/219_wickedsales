@@ -1,9 +1,15 @@
 import React, {Component} from 'react';
 import SignInForm from './sign_in_form';
+import {connect} from 'react-redux'
+import {signIn} from '../../../actions'
+
+//always use connect when there is a need to interact with the redux state
 
 class SignIn extends Component{
-    handleSignIn(values){
+    handleSignIn= (values) => {
         console.log("Form Values:", values);
+
+        this.props.signIn(values);
     }
 
     render(){
@@ -17,4 +23,8 @@ class SignIn extends Component{
     }
 }
 
-export default SignIn;
+
+
+export default connect(null, {
+    signIn: signIn
+})(SignIn);
