@@ -8,6 +8,7 @@ import Input from '../../general/input';
 const SignInForm = props =>{
     console.log("signin in form props", props);
     const {handleSubmit, signIn} = props;
+    console.log("handke", handleSubmit);
     return(
         <form onSubmit={handleSubmit(signIn)}>
             <div className="row">

@@ -1,7 +1,9 @@
+import types from '../actions/types';
+
 
 const DEFAULT_STATE = {
     auth: false, /* */
-    username: ''
+    email: ''
 };
 
 //the reducer is just a function
@@ -19,10 +21,15 @@ function userReducer(state = DEFAULT_STATE, action){
     switch(action.type){
         //case 'LOG_USER_IN':
             //return{...state, auth: true, username: action.username}; 
-        case 'SIGN_IN':
-            return{...state, auth: true};
+        case types.SIGN_IN:
+            return{...state, auth: true, email: action.email};
         //returning just auth will delete username since the return replaces the default state, 
         //generally want to deconstruct initial state
+
+        //make a case for SIGN_OUT
+        case types.SIGN_OUT:
+            return{...state, auth: false}; //can also use ...DEFAULT_STATE, not always good, might not want to remove everything in state
+
         default:
             return state;
     }
